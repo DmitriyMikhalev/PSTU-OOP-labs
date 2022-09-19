@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
 namespace lab5
 {
@@ -75,7 +76,6 @@ namespace lab5
                 }
             }
         }
-
         public static void DeleteZeroRow(ref int[,] array, ref int size1, int size2)
         {
             if (array.Length == 0)
@@ -88,12 +88,12 @@ namespace lab5
             {
                 Console.WriteLine("\nИндекс нужной строки: " + CheckZeroes(ref array, size1, size2));
 
-                int[,] new_arr = new int[size1 - 1, size2];
+                int[,] newArr = new int[size1 - 1, size2];
                 for (int i = 0; i < indexToDelete; ++i)
                 {
                     for (int j = 0; j < size2; ++j)
                     {
-                        new_arr[i, j] = array[i, j];
+                        newArr[i, j] = array[i, j];
                     }
                 }
 
@@ -101,10 +101,10 @@ namespace lab5
                 {
                     for (int j = 0; j < size2; j++)
                     {
-                        new_arr[i - 1, j] = array[i, j];
+                        newArr[i - 1, j] = array[i, j];
                     }
                 }
-                array = new_arr;
+                array = newArr;
                 --size1;
                 Console.Write("\nРезультат: ");
                 PrintArray(ref array, size1, size2);
@@ -113,7 +113,6 @@ namespace lab5
             Console.WriteLine("\nУмный самый что ли? Не видно, что удалять нечего?..\n");
             return;
         }
-
         public static void Task1()
         {
             Random rnd = new Random();
@@ -157,10 +156,144 @@ namespace lab5
                 }
             }
         }
+
+        public static bool ValidString(ref string str)
+        {
+            var patternEnd = ".!?";
+            var pattern = ",:;";
+            if (str.Length < 2 || !(str[0] <= 90 && str[0] >= 65)) return false; // ЕСЛИ СТРОКА МАЛЕНЬКАЯ ИЛИ НЕ С ЗАГЛАВНОЙ
+
+            if (str.Length >= 2 && !patternEnd.Contains(str[str.Length - 1].ToString()) || str[str.Length - 2] == ' ') return false; // ЕСЛИ СТРОКА НЕ ЗАКАНЧИВАЕТСЯ СИМВОЛОМ
+
+            for (int i = 0; i < str.Length; ++i) // ПРОВЕРКА НАЧИНКИ
+            {
+                char ch = str[i];
+                if (i >= 2 && ch >= 65 && ch <= 90)
+                {
+                    if (!(str[i - 1].Equals(' ') && patternEnd.Contains(str[i - 2].ToString()))) return false; // ЕСЛИ ЗАГЛАВНАЯ, ТО ДОЛЖЕН БЫТЬ ПРОБЕЛ, ПЕРЕД НИМ .?! 
+                }
+
+                if (i >= 1 && pattern.Contains(ch.ToString()))
+                {
+                    if (str[i + 1] != ' ') return false; // ЕСЛИ ПОСЛЕ ,;: НЕТ ПРОБЕЛА
+                }
+            }
+
+            return true;
+
+        }
+        public static bool ValidText(ref string str)
+        {
+            var patternEnd = ".!?";
+            int sentenceCount = 0;
+            for (int i = 0; i < str.Length; ++i)
+            {
+                var ch = str[i];
+                if (patternEnd.Contains(ch.ToString())) ++sentenceCount;
+            }
+            if (sentenceCount == 0) return false;
+
+            int startSentence = 0;
+            string sentence;
+            for (int i = 0; i < str.Length; ++i)
+            {
+                if (patternEnd.Contains(str[i].ToString()))
+                {
+                    sentence = str.Substring(startSentence, i - startSentence + 1);
+
+                    if (!ValidString(ref sentence)) return false;
+                    startSentence = i + 2;
+                    ++i;
+                }
+            }
+            return true;
+        }
+        public static void DeleteDuplicateSpaces(ref string str)
+        {
+            string newString = "";
+            for (int i = 0; i < str.Length; ++i)
+            {
+                if (newString.Length > 2) 
+                {
+                    if (newString[newString.Length - 1].Equals(' ') && str[i].Equals(' ')) continue;
+                }
+                newString = string.Concat(newString, str[i].ToString());
+            }
+            str = newString;
+        }
+        public static string InputString()
+        {
+            string str;
+            do
+            {
+                Console.WriteLine("Введите строку:");
+                str = Console.ReadLine();
+                str = str.Trim();
+                DeleteDuplicateSpaces(ref str);
+            } while (!ValidText(ref str) || !".?!".Contains(str[str.Length - 1].ToString()));
+            return str;
+        }
+        public static void Task2()
+        {
+            string stringToChange = InputString();
+            Console.Write($"String is: {stringToChange}");
+            var result = ConcatenateList(separateSentence(stringToChange));
+            Console.WriteLine($"\nResult is: {result}");
+        }
+
+        public static List<string> separateSentence(string str)
+        {
+
+            List<string> list = new List<string>();
+            var pattern = " .?,;:!";
+            string symbol;
+            string word;
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (pattern.Contains(str[i].ToString()))
+                {
+                    symbol = str[i].ToString();
+                    word = str.Substring(0, i);
+                    if (pattern.Contains(symbol))
+                    {
+                        str = str.Remove(i, 1);
+                    }
+
+                    list.Add(FormatWord(word, list.Count + 1) +  symbol);
+                    str = str.Substring(i);
+                    str = str.Trim();
+
+                    i = -1;
+                }
+            }
+            return list;
+        }
+
+        public static string ConcatenateList(List<string> list)
+        {
+            string str = "";
+            string pattern = "?.!,:;";
+            for (int i = 0; i < list.Count; ++i)
+            { 
+                if (pattern.Contains(list[i][list[i].Length - 1].ToString())) list[i] += " ";
+                str = string.Concat(str, list[i]);
+            }
+            return str;
+        }
+        public static string FormatWord(string word, int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                word += word[0];
+                word = word.Substring(1);
+            }
+            return word;
+        }
         static void Main(string[] args)
         {
             Task1();
-            Console.ReadLine();
+            Task2();
+            Console.ReadKey();
         }
     }
 }
