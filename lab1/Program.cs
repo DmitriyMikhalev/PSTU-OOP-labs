@@ -1,47 +1,85 @@
-﻿using System;
+using System;
+using System.Numerics;
 
 namespace Lab1
 {
     class Program
     {
-        static void InputDoubleDataTask1(out double x, string message)
+        static double InputDoubleData()
         {
-            bool parsed;
+            string parsed;
+            double res;
             do
             {
-                Console.WriteLine(message);
-                parsed = double.TryParse(Console.ReadLine(), out x);
-            } while (!(parsed && Math.Abs(x + Math.Pow(x, 2)) <= 1));
-        }
-        static void InputDoubleDataTask2(out double x, string message)
-        {
-            bool parsed;
-            do
-            {
-                Console.WriteLine(message);
-                parsed = double.TryParse(Console.ReadLine(), out x);
-            } while (!parsed);
-        }
-        static void InputFloatDataTask3(out float x, string message)
-        {
-            bool parsed;
-            do
-            {
-                Console.WriteLine(message);
-                parsed = float.TryParse(Console.ReadLine(), out x);
-            } while (!parsed);
-        }
-        static void InputIntegerData(out int n, out int m)
-        {
-            bool parsedFirst, parsedSecond;
-            do
-            {
-                Console.WriteLine("Введите целое значение n:");
-                parsedFirst = int.TryParse(Console.ReadLine(), out n);
+                Console.WriteLine("Введите дробное число в диапазоне +-1,5 x 10^-45 до ±3,4 x 10^38:");
+                parsed = Console.ReadLine();
 
-                Console.WriteLine("Введите целое значение m:");
-                parsedSecond = int.TryParse(Console.ReadLine(), out m);
-            } while (!(parsedFirst && parsedSecond));
+                if (double.TryParse(parsed, out res)) return res;
+                else Console.WriteLine("Введена строка.");
+            } while (true);
+        }
+
+        static double InputDoubleDataLimited(double limit1, double limit2)
+        {
+            string parsed;
+            double res;
+            do
+            {
+                Console.WriteLine($"Введите дробное число в диапазоне {limit1} до {limit2}:");
+                parsed = Console.ReadLine();
+
+                if (double.TryParse(parsed, out res))
+                {
+                    if (CorrectSectionDouble(limit1, limit2, res)) return res;
+                    else Console.WriteLine("Выход за границы диапазона.");
+                }
+                else Console.WriteLine("Введена строка.");
+            } while (true);
+        }
+        static bool CorrectSectionDouble(double limit1, double limit2, double value)
+        {
+            if (limit1 <= value && value <= limit2) return true;
+            return false;
+        }
+        static bool CorrectSection(BigInteger value)
+        {
+            if (int.MinValue <= value && value <= int.MaxValue) return true;
+            return false;
+        }
+        static int InputIntegerData()
+        {
+            string parsed = "";
+            var res = new BigInteger();
+            bool isString;
+            string pattern = "0123456789-,";
+            double noNeed;
+            do
+            {
+                isString = false;
+                Console.WriteLine("Введите целое число в диапазоне [-2147483648; 2147483647]:");
+                parsed = Console.ReadLine();
+
+                if (BigInteger.TryParse(parsed, out res))
+                {
+                    if (CorrectSection(res)) return (int)res;
+
+                    else Console.WriteLine("Слишком большое число по модулю.");
+                }
+                else
+                {
+                    foreach(char i in parsed)
+                    {
+                        if (!pattern.Contains(i.ToString()))
+                        {
+                            isString = true;
+                            break;
+                        }
+                    }
+                    if (!isString && double.TryParse(parsed, out noNeed)) Console.WriteLine("Введен double.");
+
+                    else Console.WriteLine("Введена строка.");
+                }
+            } while (true);
         }
         static void Main(string[] args)
         {
@@ -52,19 +90,31 @@ namespace Lab1
         }
         static void Task1()
         {
-            InputIntegerData(out int n, out int m);
+            Console.WriteLine("Ввод значений m и n для задания 1.1");
+            int n = InputIntegerData();
+            int m = InputIntegerData();
             dynamic result = n++ + m--;
             Console.WriteLine($"n++ + m-- = {result}\n", result);
 
-            InputDoubleDataTask1(out double x, "Введите значение x, (-1.61803 <~ x <~ 0,618034):");
+
+            Console.WriteLine("Ввод значения x для задания 1.2");
+            const double LIMIT1 = -1.61803;
+            const double LIMIT2 = 0.618034;
+            double x = InputDoubleDataLimited(LIMIT1, LIMIT2);
             result = Math.Asin(x + Math.Pow(x, 2));
             Console.WriteLine($"result = {result}\n", result);
 
-            InputIntegerData(out n, out m);
+
+            Console.WriteLine("Ввод значений m и n для задания 1.3");
+            n = InputIntegerData();
+            m = InputIntegerData();
             result = n * m < n++;
             Console.WriteLine($"n*m < n++ = {result}\n", result);
 
-            InputIntegerData(out n, out m);
+
+            Console.WriteLine("Ввод значений m и n для задания 1.4");
+            n = InputIntegerData();
+            m = InputIntegerData();
             result = n-- > ++m;
             Console.WriteLine($"n-- > ++m = {result}", result);
 
@@ -72,8 +122,9 @@ namespace Lab1
         }
         static void Task2()
         {
-            InputDoubleDataTask2(out double x, "\nВведите значение x:");
-            InputDoubleDataTask2(out double y, "Введите значение y:");
+            Console.WriteLine("\nВвод значений x и y для задания 2.");
+            double x = InputDoubleData();
+            double y = InputDoubleData();
 
             Console.Write("Точка ");
             if (!((y >= -5 && y <= -3 && x >= -7 && x <= 0) || (y >= 2 && y <= 5 && x >= 0)))
