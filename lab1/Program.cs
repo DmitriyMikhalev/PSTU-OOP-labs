@@ -43,8 +43,7 @@ namespace Lab1
         }
         static bool CorrectSection(BigInteger value)
         {
-            if (int.MinValue <= value && value <= int.MaxValue) return true;
-            return false;
+            return int.MinValue <= value && value <= int.MaxValue;
         }
         static int InputIntegerData()
         {
