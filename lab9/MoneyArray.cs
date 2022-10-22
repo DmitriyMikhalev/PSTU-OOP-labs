@@ -7,8 +7,8 @@ namespace lab9
     class MoneyArray
     {
         private Money[] _array;
-        private const uint _MaxKopecksValue = 99;
-        private const uint _KopecksInRuble = 99;
+        private const int _MaxKopecksValue = 99;
+        private const int _minSize = 0;
 
         public int Length { get { return _array.Length; } }
 
@@ -16,7 +16,7 @@ namespace lab9
 
         public MoneyArray(in int size, in Random random = null)
         {
-            if (size < 1) throw new ArgumentException("Некорректный размер");
+            if (size < _minSize) throw new ArgumentException("Некорректный размер");
 
             _array = new Money[size];
             if (random == null) FillArray();
