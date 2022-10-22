@@ -27,10 +27,10 @@ namespace lab9
             Money Mon2 = new Money(rubles: 2, kopecks: 20);
             Console.WriteLine($"\nСоздается объект Mon2, в конструктор переданы 2 рубля и 20 копеек\nРезультат: {Mon2.GetInfo()}");
 
-            Money Add = Mon1.AddCopecks(55);
+            Money Add = Mon1.AddCopecks(additionalKopecks: 55);
             Console.WriteLine($"\nК объекту Mon1 добавляются 55 копеек с помощью метода класса\nТип результата: {Add.GetType()}\nРезультат: {Add.GetInfo()}");
 
-            Add = Money.AddCopecks(Add, 15);
+            Add = Money.AddCopecks(obj: Add, additionalKopecks: 15);
             Console.WriteLine($"\nК объекту Add добавляются 15 копеек с помощью статического метода класса\nТип результата: {Add.GetType()}\nРезультат: {Add.GetInfo()}");
 
             Console.WriteLine($"\nВсего создано объектов: {Money.Count}\n");
@@ -39,7 +39,7 @@ namespace lab9
         {
             Console.WriteLine("==============================TASK #2==============================");
 
-            Money Mon0 = new Money(1, 89);
+            Money Mon0 = new Money(rubles: 1, kopecks: 89);
             Console.WriteLine($"\nСоздается объект Mon0, в конструктор переданы 1 рубль и 89 копеек\n\nОсуществляется инкремент\nРезультат: {(++Mon0).GetInfo()}");
             Console.WriteLine($"\nОсуществляется декремент\nРезультат: {(--Mon0).GetInfo()}");
 
@@ -47,9 +47,9 @@ namespace lab9
             double Mon0Double = Mon0;
             Console.Write($"\nОсуществляется неявное приведение к double\nТип результата: {Mon0Double.GetType()}\nРезультат: "); Console.WriteLine(Mon0);
 
-            Money Mon1 = new Money(1, 10);
+            Money Mon1 = new Money(rubles: 1, kopecks: 10);
             Console.WriteLine($"\nСоздается объект Mon1, в конструктор переданы 1 рубль и 10 копеек");
-            Money Mon2 = new Money(2, 30);
+            Money Mon2 = new Money(rubles: 2, kopecks: 30);
             Console.WriteLine($"Создается объект Mon2, в конструктор переданы 2 рубля и 30 копеек");
 
             Money res = Mon1 + Mon2;

@@ -6,8 +6,9 @@ namespace lab9
 {
     class MoneyArray
     {
-        Money[] _array;
-        private const int MaxKopecksValue = 99;
+        private Money[] _array;
+        private const uint _MaxKopecksValue = 99;
+        private const uint _KopecksInRuble = 99;
 
         public int Length { get { return _array.Length; } }
 
@@ -33,7 +34,7 @@ namespace lab9
             {
                 _array[i] = new Money(
                     Interface.ReadUInt32(message: $"Введите натуральное значение рублей {i + 1}-го элемента (или 0): "),
-                    Interface.ReadUInt32(message: $"Введите натуральное значение копеек {i + 1}-го элемента (или 0; до {MaxKopecksValue}): ", maxValue: MaxKopecksValue)
+                    Interface.ReadUInt32(message: $"Введите натуральное значение копеек {i + 1}-го элемента (или 0; до {_MaxKopecksValue}): ", maxValue: _MaxKopecksValue)
                 );
             }
         }
@@ -44,7 +45,7 @@ namespace lab9
             {
                 _array[i] = new Money(
                     rubles: (uint)random.Next(maxValue: 100),
-                    kopecks: (uint)random.Next(maxValue: MaxKopecksValue)
+                    kopecks: (uint)random.Next(maxValue: _MaxKopecksValue)
                 );
             }
         }

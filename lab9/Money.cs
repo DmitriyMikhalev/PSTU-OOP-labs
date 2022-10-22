@@ -9,6 +9,8 @@ namespace lab9
         private uint _rubles;
         private uint _kopecks;
         public static uint Count;
+        private const uint _MaxKopecksValue = 99;
+        private const uint _KopecksInRuble = 100;
         public uint Rubles
         {
             get { return _rubles; }
@@ -19,15 +21,15 @@ namespace lab9
             get { return _kopecks; }
             set
             {
-                if (value > 99) _kopecks = 99;
+                if (value > _MaxKopecksValue) _kopecks = _MaxKopecksValue;
                 else _kopecks = value;
             }
         }
         public Money() { Count++; }
         public Money(in uint kopecks)
         {
-            if (kopecks > 99) _rubles = kopecks / 100;
-            _kopecks = kopecks - _rubles * 100;
+            if (kopecks > _MaxKopecksValue) _rubles = kopecks / _KopecksInRuble;
+            _kopecks = kopecks - _rubles * _KopecksInRuble;
             Count++;
         }
 
@@ -73,7 +75,7 @@ namespace lab9
 
         public static implicit operator double(in Money obj)
         {
-            return ((double)(obj._kopecks)) / 100;
+            return ((double)(obj._kopecks)) / _KopecksInRuble;
         }
         public Money AddCopecks(in uint additionalKopecks)
         {
@@ -85,6 +87,6 @@ namespace lab9
         }
         public string GetInfo() { return $"{_rubles} руб. {_kopecks} коп."; }
 
-        public uint ToKopecks() { return _kopecks + 100 * _rubles; }
+        public uint ToKopecks() { return _kopecks + _KopecksInRuble * _rubles; }
     }
 }
