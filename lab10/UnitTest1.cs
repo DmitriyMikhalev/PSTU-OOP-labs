@@ -31,6 +31,8 @@ namespace lab10
             Assert.AreEqual(expectedPages, obj.Pages);
             Assert.AreEqual(expectedYear, obj.Year);
             Assert.AreEqual(expectedCount, obj.Count);
+
+            Assert.IsInstanceOfType(obj, typeof(Printing));
         }
 
         [TestMethod]
