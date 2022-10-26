@@ -134,12 +134,12 @@ namespace lab10
             );
 
             string expected = (
-                $"Òèï îáúåêòà: {obj.GetType().Name}\n" +
-                $"Íàçâàíèå: \"{obj.Name}\"\n" +
-                $"Ñòðàíèö: {obj.Pages}\n" +
-                $"Ãîä âûïóñêà: {obj.Year}\n" +
-                $"Öåíà: {obj.Price}\n" +
-                $"Â íàëè÷èè: {obj.Count}"
+                $"Тип объекта: {obj.GetType().Name}\n" +
+                $"Название: \"{obj.Name}\"\n" +
+                $"Страниц: {obj.Pages}\n" +
+                $"Год выпуска: {obj.Year}\n" +
+                $"Цена: {obj.Price}\n" +
+                $"В наличии: {obj.Count}"
             );
 
             Assert.AreEqual(expected, obj.GetInfoNotOverride());
@@ -157,15 +157,15 @@ namespace lab10
             );
 
             string expected = (
-                $"Òèï îáúåêòà: {obj.GetType().Name}\n" +
-                $"Æóðíàë: \"{obj.Name}\"\n" +
-                $"Öèêë: {obj.Cycle}\n" +
-                $"Ñòðàíèö: {obj.Pages}\n" +
-                $"Ãîä âûïóñêà: {obj.Year}\n" +
-                $"Öåíà: {obj.Price}\n" +
-                $"Â íàëè÷èè: {obj.Count}\n"
+                $"Тип объекта: {obj.GetType().Name}\n" +
+                $"Журнал: \"{obj.Name}\"\n" +
+                $"Цикл: {obj.Cycle}\n" +
+                $"Страниц: {obj.Pages}\n" +
+                $"Год выпуска: {obj.Year}\n" +
+                $"Цена: {obj.Price}\n" +
+                $"В наличии: {obj.Count}\n"
            );
-            
+
             Assert.AreEqual(expected, obj.GetInfoOverride());
         }
 
@@ -208,12 +208,12 @@ namespace lab10
             );
 
             string expected = (
-                $"Òèï îáúåêòà: {obj.GetType().Name}\n" +
-                $"Íàçâàíèå: \"{obj.Name}\"\n" +
-                $"Ñòðàíèö: {obj.Pages}\n" +
-                $"Ãîä âûïóñêà: {obj.Year}\n" +
-                $"Öåíà: {obj.Price}\n" +
-                $"Â íàëè÷èè: {obj.Count}"
+                $"Тип объекта: {obj.GetType().Name}\n" +
+                $"Название: \"{obj.Name}\"\n" +
+                $"Страниц: {obj.Pages}\n" +
+                $"Год выпуска: {obj.Year}\n" +
+                $"Цена: {obj.Price}\n" +
+                $"В наличии: {obj.Count}"
             );
 
             Assert.AreEqual(expected, obj.GetInfoNotOverride());
@@ -231,13 +231,13 @@ namespace lab10
             );
 
             string expected = (
-                $"Òèï îáúåêòà: {obj.GetType().Name}\n" +
-                $"Êíèãà: \"{obj.Name}\"\n" +
-                $"Àâòîð: {obj.Author}\n" +
-                $"Ñòðàíèö: {obj.Pages}\n" +
-                $"Ãîä âûïóñêà: {obj.Year}\n" +
-                $"Öåíà: {obj.Price}\n" +
-                $"Â íàëè÷èè: {obj.Count}\n"
+                $"Тип объекта: {obj.GetType().Name}\n" +
+                $"Книга: \"{obj.Name}\"\n" +
+                $"Автор: {obj.Author}\n" +
+                $"Страниц: {obj.Pages}\n" +
+                $"Год выпуска: {obj.Year}\n" +
+                $"Цена: {obj.Price}\n" +
+                $"В наличии: {obj.Count}\n"
             );
 
             Assert.AreEqual(expected, obj.GetInfoOverride());
@@ -287,7 +287,7 @@ namespace lab10
             );
             int expectedCategory = 9;
             obj.Category = expectedCategory;
-          
+
             Assert.AreEqual(expectedCategory, obj.Category);
         }
         [TestMethod]
@@ -325,12 +325,12 @@ namespace lab10
             );
 
             string expected = (
-                 $"Òèï îáúåêòà: {obj.GetType().Name}\n" +
-                 $"Íàçâàíèå: \"{obj.Name}\"\n" +
-                 $"Ñòðàíèö: {obj.Pages}\n" +
-                 $"Ãîä âûïóñêà: {obj.Year}\n" +
-                 $"Öåíà: {obj.Price}\n" +
-                 $"Â íàëè÷èè: {obj.Count}"
+                 $"Тип объекта: {obj.GetType().Name}\n" +
+                 $"Название: \"{obj.Name}\"\n" +
+                 $"Страниц: {obj.Pages}\n" +
+                 $"Год выпуска: {obj.Year}\n" +
+                 $"Цена: {obj.Price}\n" +
+                 $"В наличии: {obj.Count}"
              );
 
             Assert.AreEqual(expected, obj.GetInfoNotOverride());
@@ -349,14 +349,14 @@ namespace lab10
             );
 
             string expected = (
-                $"Òèï îáúåêòà: {obj.GetType().Name}\n" +
-                $"Ó÷åáíèê: \"{obj.Name}\"\n" +
-                $"Êëàññ îáó÷åíèÿ: {obj.Category}\n" +
-                $"Àâòîð: {obj.Author}\n" +
-                $"Ñòðàíèö: {obj.Pages}\n" +
-                $"Ãîä âûïóñêà: {obj.Year}\n" +
-                $"Öåíà: {obj.Price}\n" +
-                $"Â íàëè÷èè: {obj.Count}\n"
+                $"Тип объекта: {obj.GetType().Name}\n" +
+                $"Учебник: \"{obj.Name}\"\n" +
+                $"Класс обучения: {obj.Category}\n" +
+                $"Автор: {obj.Author}\n" +
+                $"Страниц: {obj.Pages}\n" +
+                $"Год выпуска: {obj.Year}\n" +
+                $"Цена: {obj.Price}\n" +
+                $"В наличии: {obj.Count}\n"
             );
 
             Assert.AreEqual(expected, obj.GetInfoOverride());
@@ -370,91 +370,91 @@ namespace lab10
         {
             int expectedSum = 40768;
             SchoolBook schoolBook1 = new SchoolBook(
-                name: "Ôèçèêà",
+                name: "Физика",
                 pageCount: 378,
                 releaseYear: 2019,
                 price: 316,
-                author: "Àëåêñàíäð Ïåðûøêèí",
+                author: "Александр Перышкин",
                 categoryClass: 10,
                 count: 37
             );
             SchoolBook schoolBook2 = new SchoolBook(
-                name: "Èñòîðèÿ Ðóñè",
+                name: "История Руси",
                 pageCount: 270,
                 releaseYear: 2012,
                 price: 344,
-                author: "Åâãåíèé Ðîìçåí",
+                author: "Евгений Ромзен",
                 categoryClass: 7,
                 count: 85
             );
             SchoolBook schoolBook3 = new SchoolBook(
-                name: "ÅÃÝ èíôîðìàòèêà 2022",
+                name: "ЕГЭ информатика 2022",
                 pageCount: 129,
                 releaseYear: 2022,
                 price: 364,
-                author: "ÔÃÎÑ",
+                author: "ФГОС",
                 categoryClass: 11,
                 count: 112
             );
             SchoolBook schoolBook4 = new SchoolBook(
-                name: "ÅÃÝ ðóññêèé ÿçûê 2022",
+                name: "ЕГЭ русский язык 2022",
                 pageCount: 190,
                 releaseYear: 2022,
                 price: 290,
-                author: "ÔÃÎÑ",
+                author: "ФГОС",
                 categoryClass: 11,
                 count: 19
             );
             SchoolBook schoolBook5 = new SchoolBook(
-                name: "Èñòîðèÿ Ðóñè",
+                name: "История Руси",
                 pageCount: 270,
                 releaseYear: 2012,
                 price: 344,
-                author: "Åâãåíèé Ðîìçåí",
+                author: "Евгений Ромзен",
                 categoryClass: 7,
                 count: 85
             );
 
             Printing[] array = { schoolBook1, schoolBook2, schoolBook3, schoolBook4, schoolBook5 };
 
-            Assert.AreEqual(expectedSum, Program.GetSumItems(array, "ÅÃÝ èíôîðìàòèêà 2022"));
+            Assert.AreEqual(expectedSum, Program.GetSumItems(array, "ЕГЭ информатика 2022"));
         }
         [TestMethod]
         public void TestGetInfoPrintings()
         {
             string expected = (
-                "Òèï îáúåêòà: SchoolBook\n" +
-                "Ó÷åáíèê: \"Ôèçèêà\"\n" +
-                "Êëàññ îáó÷åíèÿ: 10" +
-                "\nÀâòîð: Àëåêñàíäð Ïåðûøêèí\n" +
-                "Ñòðàíèö: 378\n" +
-                "Ãîä âûïóñêà: 2019\n" +
-                "Öåíà: 316\n" +
-                "Â íàëè÷èè: 37\n\n" +
-                "Òèï îáúåêòà: SchoolBook\n" +
-                "Ó÷åáíèê: \"Èñòîðèÿ Ðóñè\"\n" +
-                "Êëàññ îáó÷åíèÿ: 7" +
-                "\nÀâòîð: Åâãåíèé Ðîìçåí\n" +
-                "Ñòðàíèö: 270\n" +
-                "Ãîä âûïóñêà: 2012\n" +
-                "Öåíà: 344\n" +
-                "Â íàëè÷èè: 85\n\n"
+                "Тип объекта: SchoolBook\n" +
+                "Учебник: \"Физика\"\n" +
+                "Класс обучения: 10" +
+                "\nАвтор: Александр Перышкин\n" +
+                "Страниц: 378\n" +
+                "Год выпуска: 2019\n" +
+                "Цена: 316\n" +
+                "В наличии: 37\n\n" +
+                "Тип объекта: SchoolBook\n" +
+                "Учебник: \"История Руси\"\n" +
+                "Класс обучения: 7" +
+                "\nАвтор: Евгений Ромзен\n" +
+                "Страниц: 270\n" +
+                "Год выпуска: 2012\n" +
+                "Цена: 344\n" +
+                "В наличии: 85\n\n"
             );
             SchoolBook schoolBook2 = new SchoolBook(
-                name: "Èñòîðèÿ Ðóñè",
+                name: "История Руси",
                 pageCount: 270,
                 releaseYear: 2012,
                 price: 344,
-                author: "Åâãåíèé Ðîìçåí",
+                author: "Евгений Ромзен",
                 categoryClass: 7,
                 count: 85
             );
             SchoolBook schoolBook1 = new SchoolBook(
-                name: "Ôèçèêà",
+                name: "Физика",
                 pageCount: 378,
                 releaseYear: 2019,
                 price: 316,
-                author: "Àëåêñàíäð Ïåðûøêèí",
+                author: "Александр Перышкин",
                 categoryClass: 10,
                 count: 37
             );
@@ -467,47 +467,47 @@ namespace lab10
         {
             int expectedCount = 5;
             SchoolBook schoolBook1 = new SchoolBook(
-                name: "Ôèçèêà",
+                name: "Физика",
                 pageCount: 378,
                 releaseYear: 2019,
                 price: 316,
-                author: "Àëåêñàíäð Ïåðûøêèí",
+                author: "Александр Перышкин",
                 categoryClass: 10,
                 count: 37
             );
             SchoolBook schoolBook2 = new SchoolBook(
-                name: "Èñòîðèÿ Ðóñè",
+                name: "История Руси",
                 pageCount: 270,
                 releaseYear: 2012,
                 price: 344,
-                author: "Åâãåíèé Ðîìçåí",
+                author: "Евгений Ромзен",
                 categoryClass: 7,
                 count: 85
             );
             SchoolBook schoolBook3 = new SchoolBook(
-                name: "ÅÃÝ èíôîðìàòèêà 2022",
+                name: "ЕГЭ информатика 2022",
                 pageCount: 129,
                 releaseYear: 2022,
                 price: 364,
-                author: "ÔÃÎÑ",
+                author: "ФГОС",
                 categoryClass: 11,
                 count: 112
             );
             SchoolBook schoolBook4 = new SchoolBook(
-                name: "ÅÃÝ ðóññêèé ÿçûê 2022",
+                name: "ЕГЭ русский язык 2022",
                 pageCount: 190,
                 releaseYear: 2022,
                 price: 290,
-                author: "ÔÃÎÑ",
+                author: "ФГОС",
                 categoryClass: 11,
                 count: 19
             );
             SchoolBook schoolBook5 = new SchoolBook(
-                name: "Èñòîðèÿ Ðóñè",
+                name: "История Руси",
                 pageCount: 270,
                 releaseYear: 2012,
                 price: 344,
-                author: "Åâãåíèé Ðîìçåí",
+                author: "Евгений Ромзен",
                 categoryClass: 7,
                 count: 85
             );
@@ -528,7 +528,7 @@ namespace lab10
                 count: 17,
                 author: "test_author"
             );
-            string expected = "* \"" + obj1.Name + $"\" ({obj1.Year}), " + obj1.Author + "\n";
+            string expected = "* \"" + obj1.Name + $"\" ({obj1.Year}), " +  obj1.Author + "\n";
 
             Book obj2 = new Book(
                 name: "dfgdfg",
@@ -549,35 +549,35 @@ namespace lab10
         {
             string expected = (
                 "=======================TASK 1=======================\n\n" +
-                "ÁÅÇ ÈÑÏÎËÜÇÎÂÀÍÈß ÂÈÐÒÓÀËÜÍÛÕ ÌÅÒÎÄÎÂ:\n\n" +
-                "Òèï îáúåêòà: Magazine\nÍàçâàíèå: \"Forbes\"\n" +
-                "Ñòðàíèö: 23\nÃîä âûïóñêà: 2022\n" +
-                "Öåíà: 600\nÂ íàëè÷èè: 94\n\n" +
-                "Òèï îáúåêòà: Book\nÍàçâàíèå: \"Ìàñòåð è Ìàðãàðèòà\"\n" +
-                "Ñòðàíèö: 414\nÃîä âûïóñêà: 1928\n" +
-                "Öåíà: 971\nÂ íàëè÷èè: 15\n\n" +
-                "Òèï îáúåêòà: SchoolBook\nÍàçâàíèå: \"Ôèçèêà\"\n" +
-                "Ñòðàíèö: 378\nÃîä âûïóñêà: 2019\n" +
-                "Öåíà: 316\nÂ íàëè÷èè: 37\n\n" +
-                "Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÂÈÐÒÓÀËÜÍÛÕ ÌÅÒÎÄÎÂ:\n\n" + 
-                "Òèï îáúåêòà: Magazine\nÆóðíàë: \"Forbes\"\n" + 
-                "Öèêë: ôèíàíñû\nÑòðàíèö: 23\n" +
-                "Ãîä âûïóñêà: 2022\nÖåíà: 600\n" +
-                "Â íàëè÷èè: 94\n\nÒèï îáúåêòà: Book\n"+
-                "Êíèãà: \"Ìàñòåð è Ìàðãàðèòà\"\nÀâòîð: Ìèõàèë Áóëãàêîâ\n" +
-                "Ñòðàíèö: 414\nÃîä âûïóñêà: 1928\n" +
-                "Öåíà: 971\nÂ íàëè÷èè: 15\n\n" +
-                "Òèï îáúåêòà: SchoolBook\nÓ÷åáíèê: \"Ôèçèêà\"\n" +
-                "Êëàññ îáó÷åíèÿ: 10\nÀâòîð: Àëåêñàíäð Ïåðûøêèí\n" +
-                "Ñòðàíèö: 378\nÃîä âûïóñêà: 2019\n" +
-                "Öåíà: 316\nÂ íàëè÷èè: 37\n\n" +
-                "Êàê âèäíî èç ðåçóëüòàòà ðàáîòû ïðîãðàììû, âèðòóàëüíûå ìåòîäû íóæíû äëÿ èçìåíåíèÿ ëîãèêè ðàáîòû ìåòîäà. Òàêèì îáðàçîì, " +
-                "â ñëó÷àå èñïîëüçîâàíèÿ îáû÷íîãî ìåòîäà áóäåò âûçâàí ìåòîä áàçîâîãî êëàññà äëÿ êàæäîãî îáúåêòà ïðîèçâîäíîãî êëàññà, " +
-                "÷òî ïðèâåäåò ê \"îáðàáîòêå\" òîëüêî îáùåé (áàçîâîé) ÷àñòè îáúåêòîâ. Åñëè ïðîáîâàòü ñîçäàòü òàêîé æå ìåòîä â êëàññå-íàñëåäíèêå, " +
-                "êîìïèëÿòîð âûäàñò ïðåäóïðåæäåíèå î òîì, ÷òî ÂÑÅÃÄÀ áóäåò èñïîëüçîâàí ìåòîä èìåííî áàçîâîãî êëàññà ñ òàêîé æå ñèãíàòóðîé."
+                "БЕЗ ИСПОЛЬЗОВАНИЯ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n" +
+                "Тип объекта: Magazine\nНазвание: \"Forbes\"\n" +
+                "Страниц: 23\nГод выпуска: 2022\n" +
+                "Цена: 600\nВ наличии: 94\n\n" +
+                "Тип объекта: Book\nНазвание: \"Мастер и Маргарита\"\n" +
+                "Страниц: 414\nГод выпуска: 1928\n" +
+                "Цена: 971\nВ наличии: 15\n\n" +
+                "Тип объекта: SchoolBook\nНазвание: \"Физика\"\n" +
+                "Страниц: 378\nГод выпуска: 2019\n" +
+                "Цена: 316\nВ наличии: 37\n\n" +
+                "С ИСПОЛЬЗОВАНИЕМ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n" +
+                "Тип объекта: Magazine\nЖурнал: \"Forbes\"\n" +
+                "Цикл: финансы\nСтраниц: 23\n" +
+                "Год выпуска: 2022\nЦена: 600\n" +
+                "В наличии: 94\n\nТип объекта: Book\n" +
+                "Книга: \"Мастер и Маргарита\"\nАвтор: Михаил Булгаков\n" +
+                "Страниц: 414\nГод выпуска: 1928\n" +
+                "Цена: 971\nВ наличии: 15\n\n" +
+                "Тип объекта: SchoolBook\nУчебник: \"Физика\"\n" +
+                "Класс обучения: 10\nАвтор: Александр Перышкин\n" +
+                "Страниц: 378\nГод выпуска: 2019\n" +
+                "Цена: 316\nВ наличии: 37\n\n" +
+                "Как видно из результата работы программы, виртуальные методы нужны для изменения логики работы метода. Таким образом, " +
+                "в случае использования обычного метода будет вызван метод базового класса для каждого объекта производного класса, " +
+                "что приведет к \"обработке\" только общей (базовой) части объектов. Если пробовать создать такой же метод в классе-наследнике, " +
+                "компилятор выдаст предупреждение о том, что ВСЕГДА будет использован метод именно базового класса с такой же сигнатурой."
             );
 
             Assert.AreEqual(expected, Program.Task1());
         }
-    }   
+    }
 }
