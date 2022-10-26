@@ -168,121 +168,35 @@ namespace lab10
     {
         static void Main(string[] args)
         {
-            Task1();
+            Console.WriteLine(Task1());
             Task2();
         }
         static void Task2()
         {
             Console.WriteLine("\n=======================TASK 2=======================\n");
 
-            Magazine magazine1 = new Magazine(
-                name: "Forbes",
-                pageCount: 23,
-                releaseYear: 2022,
-                price: 600,
-                cycle: "финансы",
-                count: 94
-            );
-            Magazine magazine2 = new Magazine(
-                name: "Космополитан",
-                pageCount: 17,
-                releaseYear: 2022,
-                price: 400,
-                cycle: "мода",
-                count: 36
-            );
+            Magazine magazine1 = new Magazine(name: "Forbes", pageCount: 23, releaseYear: 2022, price: 600, cycle: "финансы", count: 94);
+            Magazine magazine2 = new Magazine(name: "Космополитан", pageCount: 17, releaseYear: 2022, price: 400, cycle: "мода", count: 36);
 
+            Book book1 = new Book(name: "Мастер и Маргарита", pageCount: 414, releaseYear: 1928, price: 971, author: "Михаил Булгаков", count: 15);
+            Book book2 = new Book(name: "Война и мир", pageCount: 1274, releaseYear: 1863, price: 990, author: "Лев Толстой", count: 30);
+            Book book3 = new Book(name: "Чайка по имени Джонатан Ливингстон", pageCount: 96, releaseYear: 1970, price: 301, author: "Ричард Бах", count: 5);
+            Book book4 = new Book(name: "Первая научная история войны 1812 года", pageCount: 1940, releaseYear: 2017, price: 779, author: "Евгений Понасенков", count: 24);
 
-            Book book1 = new Book(
-                name: "Мастер и Маргарита",
-                pageCount: 414,
-                releaseYear: 1928,
-                price: 971,
-                author: "Михаил Булгаков",
-                count: 15
-            );
-            Book book2 = new Book(
-                name: "Война и мир",
-                pageCount: 1274,
-                releaseYear: 1863,
-                price: 990,
-                author: "Лев Толстой",
-                count: 30
-            );
-            Book book3 = new Book(
-                name: "Чайка по имени Джонатан Ливингстон",
-                pageCount: 96,
-                releaseYear: 1970,
-                price: 301,
-                author: "Ричард Бах",
-                count: 5
-            );
-            Book book4 = new Book(
-                name: "Первая научная история войны 1812 года",
-                pageCount: 1940,
-                releaseYear: 2017,
-                price: 779,
-                author: "Евгений Понасенков",
-                count: 24
-            );
-
-
-            SchoolBook schoolBook1 = new SchoolBook(
-                name: "Физика",
-                pageCount: 378,
-                releaseYear: 2019,
-                price: 316,
-                author: "Александр Перышкин",
-                categoryClass: 10,
-                count: 37
-            );
-            SchoolBook schoolBook2 = new SchoolBook(
-                name: "История Руси",
-                pageCount: 270,
-                releaseYear: 2012,
-                price: 344,
-                author: "Евгений Ромзен",
-                categoryClass: 7,
-                count: 85
-            );
-            SchoolBook schoolBook3 = new SchoolBook(
-                name: "ЕГЭ информатика 2022",
-                pageCount: 129,
-                releaseYear: 2022,
-                price: 364,
-                author: "ФГОС",
-                categoryClass: 11,
-                count: 112
-            );
-            SchoolBook schoolBook4 = new SchoolBook(
-                name: "ЕГЭ русский язык 2022",
-                pageCount: 190,
-                releaseYear: 2022,
-                price: 290,
-                author: "ФГОС",
-                categoryClass: 11,
-                count: 19
-            );
-            SchoolBook schoolBook5 = new SchoolBook(
-                name: "История Руси",
-                pageCount: 270,
-                releaseYear: 2012,
-                price: 344,
-                author: "Евгений Ромзен",
-                categoryClass: 7,
-                count: 85
-            );
-
-        
+            SchoolBook schoolBook1 = new SchoolBook(name: "Физика", pageCount: 378, releaseYear: 2019, price: 316, author: "Александр Перышкин", categoryClass: 10, count: 37);
+            SchoolBook schoolBook2 = new SchoolBook(name: "История Руси", pageCount: 270, releaseYear: 2012, price: 344, author: "Евгений Ромзен", categoryClass: 7, count: 85);
+            SchoolBook schoolBook3 = new SchoolBook(name: "ЕГЭ информатика 2022", pageCount: 129, releaseYear: 2022, price: 364, author: "ФГОС", categoryClass: 11, count: 112);
+            SchoolBook schoolBook4 = new SchoolBook(name: "ЕГЭ русский язык 2022", pageCount: 190, releaseYear: 2022, price: 290, author: "ФГОС", categoryClass: 11, count: 19);
+            SchoolBook schoolBook5 = new SchoolBook(name: "История Руси", pageCount: 270, releaseYear: 2012, price: 344, author: "Евгений Ромзен", categoryClass: 7, count: 85);
 
             Printing[] array = { magazine1, book1, schoolBook1, magazine2, book3, schoolBook2, schoolBook3, schoolBook4, book4, schoolBook5, book2 };
             Console.WriteLine("В наличии всего " + GetCountSchoolBooks(array) + " учебников.\n");
             Console.Write(GetInfoPrintings(array));
-            GetInfoBooksQuery(array);
-            Console.WriteLine("Общая сумма имеющейся в наличии выбранной литературы: " + GetSumItems(array, null));
+            Console.WriteLine(GetInfoBooksQuery(array, InputYear()));
+            Console.WriteLine("Общая сумма имеющейся в наличии выбранной литературы: " + GetSumItems(array, InputBookName(array)));
         }
 
-        public static int GetSumItems(in Printing[] array, in string value = "ЕГЭ информатика 2022")
+        public static string InputBookName(in Printing[] array)
         {
             //string[] validItems = new string[] { };
             //foreach (var obj in array) { validItems = validItems.Append(obj.Name).ToArray(); }
@@ -292,21 +206,22 @@ namespace lab10
             foreach (var item in validItems) { Console.WriteLine("* " + item); }
             Console.WriteLine();
 
-            string result = value;
-            if (result == null)
+            string result;
+            do
             {
-                do
-                {
-                    Console.Write("Введите название товара, общую стоимость которого необходимо высчитать: ");
-                    result = Console.ReadLine();
-                } while (!validItems.Contains(result));
-                Console.WriteLine();
-            }
+                Console.Write("Введите название товара, общую стоимость которого необходимо высчитать: ");
+                result = Console.ReadLine();
+            } while (!validItems.Contains(result));
+            Console.WriteLine();
 
+            return result;
+        }
+        public static int GetSumItems(in Printing[] array, in string value)
+        {
             int sum = 0;
             foreach (var obj in array)
             {
-                if (obj.Name == result) sum += obj.Count * obj.Price;
+                if (obj.Name == value) sum += obj.Count * obj.Price;
             }
 
             return sum;
@@ -355,19 +270,19 @@ namespace lab10
 
             return result;
         }
-        static void GetInfoBooksQuery(in Printing[] array)
+        public static string GetInfoBooksQuery(in Printing[] array, in int year)
         {
-            int year = InputYear();
             Console.WriteLine($"\nРезультат поиска по книгам с датой публикации не ранее {year}:\n");
-
+            string result = "";
             foreach (var obj in array)
             {
                 if (obj.GetType().Name == "Book" && obj.Year >= year)
                 {
                     Book objBook = obj as Book;
-                    Console.WriteLine("* \"" + objBook.Name + $"\" ({objBook.Year}), " + objBook.Author);
+                    result += $"* \"{objBook.Name}\" ({objBook.Year}), {objBook.Author}\n";
                 }
             }
+            return result;
         }
         public static int GetCountSchoolBooks(in Printing[] array)
         {
@@ -376,55 +291,30 @@ namespace lab10
 
             return count;
         }
-        static void Task1() 
+        public static string Task1()
         {
-            Console.WriteLine("=======================TASK 1=======================");
+            string result = "=======================TASK 1=======================\n";
 
-            Magazine magazine = new Magazine(
-                name: "Forbes",
-                pageCount: 23,
-                releaseYear: 2022,
-                price: 600,
-                cycle: "финансы",
-                count: 94
-            );
-
-            Book book = new Book(
-                name: "Мастер и Маргарита",
-                pageCount: 414,
-                releaseYear: 1928,
-                price: 971,
-                author: "Михаил Булгаков",
-                count: 15
-            );
-
-            SchoolBook schoolBook = new SchoolBook(
-                name: "Физика",
-                pageCount: 378,
-                releaseYear: 2019,
-                price: 316,
-                author: "Александр Перышкин",
-                categoryClass: 10,
-                count: 37
-            );
+            Magazine magazine = new Magazine(name: "Forbes", pageCount: 23, releaseYear: 2022, price: 600, cycle: "финансы", count: 94);
+            Book book = new Book(name: "Мастер и Маргарита", pageCount: 414, releaseYear: 1928, price: 971, author: "Михаил Булгаков", count: 15);
+            SchoolBook schoolBook = new SchoolBook(name: "Физика", pageCount: 378, releaseYear: 2019, price: 316, author: "Александр Перышкин", categoryClass: 10, count: 37);
 
             Printing[] array = { magazine, book, schoolBook };
 
-            Console.WriteLine("\nБЕЗ ИСПОЛЬЗОВАНИЯ ВИРТУАЛЬНЫХ МЕТОДОВ:\n");
-            foreach (var obj in array) 
-            { 
-                Console.WriteLine(obj.GetInfoNotOverride() + "\n");
-            }
+            result += "\nБЕЗ ИСПОЛЬЗОВАНИЯ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n";
+            foreach (var obj in array) { result += obj.GetInfoNotOverride() + "\n\n"; }
 
-            Console.WriteLine("С ИСПОЛЬЗОВАНИЕМ ВИРТУАЛЬНЫХ МЕТОДОВ:\n");
-            foreach (var obj in array) { Console.WriteLine(obj.GetInfoOverride()); }
+            result += "С ИСПОЛЬЗОВАНИЕМ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n";
+            foreach (var obj in array) { result += obj.GetInfoOverride() + "\n"; }
 
-            Console.WriteLine(
+            result += (
                 "Как видно из результата работы программы, виртуальные методы нужны для изменения логики работы метода. Таким образом, " +
-                "в случае использования обычного метода будет вызван\nметод базового класса для каждого объекта производного класса, " +
-                "что приведет к \"обработке\" только общей (базовой) части объектов. Если пробовать создать такой же метод в\nклассе-наследнике, " +
+                "в случае использования обычного метода будет вызван метод базового класса для каждого объекта производного класса, " +
+                "что приведет к \"обработке\" только общей (базовой) части объектов. Если пробовать создать такой же метод в классе-наследнике, " +
                 "компилятор выдаст предупреждение о том, что ВСЕГДА будет использован метод именно базового класса с такой же сигнатурой."
             );
+
+            return result;
         }
     }
 }
