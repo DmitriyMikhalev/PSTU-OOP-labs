@@ -3,175 +3,91 @@ using System.Linq;
 
 namespace lab10
 {
-    public abstract class Printing
+    interface IRandomInit
     {
-        protected string _name;
-        protected int _pageCount;
-        protected int _releaseYear;
-        protected int _price;
-        protected int _countInstances;
-
-        public int Count
-        {
-            get { return _countInstances; }
-            set 
-            {
-                if (value > 0) _countInstances = value;
-                else _countInstances = 0;
-            }
-        }
-        public int Price
-        {
-            get { return _price; }
-            set 
-            {
-                if (value >= 0) _price = value;
-                else _price = 0;
-            }
-        }
-        public string Name 
-        { 
-            get { return _name; }
-            set { _name = value; }
-        }
-        public int Pages
-        {
-            get { return _pageCount; }
-            set 
-            {
-                if (value > 0) _pageCount = value;
-                else _pageCount = 0;
-            }
-        }
-        public int Year
-        {
-            get { return _releaseYear; }
-            set 
-            {
-                if (value > 1700 && value < DateTime.Now.Year) _releaseYear = value;
-                else _releaseYear = DateTime.Now.Year;
-            }
-        }
-        public Printing(in string name, in int pageCount, in int releaseYear, in int price, in int count)
-        {
-            _name = name;
-
-            if (pageCount >= 0) _pageCount = pageCount;
-            else _pageCount = 0;
-
-            if (releaseYear <= DateTime.Now.Year && releaseYear >= 1700) _releaseYear = releaseYear;
-            else _releaseYear = DateTime.Now.Year;
-
-            if (price >= 0) _price = price;
-            else _price = 0;
-
-            if (count >= 0) _countInstances = count;
-            else _countInstances = 0;
-        }
-        public string GetInfoNotOverride()
-        {
-            return (
-                $"Тип объекта: {GetType().Name}\n" +
-                $"Название: \"{_name}\"\n" +
-                $"Страниц: {_pageCount}\n" +
-                $"Год выпуска: {_releaseYear}\n" +
-                $"Цена: {_price}\n" +
-                $"В наличии: {_countInstances}"
-            );
-        }
-        public abstract string GetInfoOverride();
+        void RandomInit();
     }
-
-    public class Magazine : Printing
-    {
-        private string _cycle;
-
-        public string Cycle 
-        {
-            get { return _cycle; }
-            set { _cycle = value; }
-        }
-        public Magazine(in string name, in int pageCount, in int releaseYear, in int price, in int count, in string cycle)
-            : base(name, pageCount, releaseYear, price, count) { _cycle = cycle; }
-        public override string GetInfoOverride()
-        {
-            return (
-                $"Тип объекта: {GetType().Name}\n" +
-                $"Журнал: \"{_name}\"\n" +
-                $"Цикл: {_cycle}\n" +
-                $"Страниц: {_pageCount}\n" +
-                $"Год выпуска: {_releaseYear}\n" +
-                $"Цена: {_price}\n" +
-                $"В наличии: {_countInstances}\n"
-           );
-        }
-    }
-
-    public class Book : Printing
-    {
-        protected string _author;
-        public string Author 
-        {
-            get { return _author; }
-            set { _author = value; } 
-        }
-        public Book(in string name, in int pageCount, in int releaseYear, in int price, in int count, in string author)
-            : base(name, pageCount, releaseYear, price, count) { _author = author; }
-        public override string GetInfoOverride()
-        {
-            return (
-                $"Тип объекта: {GetType().Name}\n" +
-                $"Книга: \"{_name}\"\n" +
-                $"Автор: {_author}\n" +
-                $"Страниц: {_pageCount}\n" +
-                $"Год выпуска: {_releaseYear}\n" +
-                $"Цена: {_price}\n" +
-                $"В наличии: {_countInstances}\n"
-            );
-        }
-    }
-
-    public class SchoolBook : Book
-    {
-        private int _categoryClass;
-        public int Category
-        {
-            get { return _categoryClass; }
-            set 
-            {
-                if (value >= 1 && value <= 11) _categoryClass = value;
-                else _categoryClass = 11;
-            }
-        }
-        public SchoolBook(in string name, in int pageCount, in int releaseYear, in int price, in int count, in string author, in int categoryClass)
-            : base(name, pageCount, releaseYear, price, count, author)
-        {
-            if (categoryClass >= 1 && categoryClass <= 11) _categoryClass = categoryClass;
-            else _categoryClass = 11;
-        }
-        public override string GetInfoOverride()
-        {
-             return (
-                $"Тип объекта: {GetType().Name}\n" +
-                $"Учебник: \"{_name}\"\n" +
-                $"Класс обучения: {_categoryClass}\n" +
-                $"Автор: {_author}\n" +
-                $"Страниц: {_pageCount}\n" +
-                $"Год выпуска: {_releaseYear}\n" +
-                $"Цена: {_price}\n" +
-                $"В наличии: {_countInstances}\n"
-            );
-        }
-    }
-
     public class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine(Task1());
             Task2();
+            Task3();
         }
-        static void Task2()
+        public static void Task3()
+        {
+            Console.WriteLine("\n=======================TASK 3=======================\n");
+
+            int valuePoint, valueBook, valueSchoolBook, valueMagazine, valuePrinting;
+            IRandomInit[] array = { new Point(), new Book(), new SchoolBook(), new Magazine() };
+            foreach (var obj in array)
+            {
+                obj.RandomInit();
+                Console.WriteLine($"Генерируется объект класса {obj.GetType().Name} с помощью ДСЧ (RandomInit):");
+
+                if (obj is Point objPoint)
+                {
+                    Console.WriteLine($"x = {objPoint.X}, y = {objPoint.Y}\n");
+                    valuePoint = objPoint.X + objPoint.Y;
+                }
+                else if (obj is Printing printingg)
+                {
+                    Console.WriteLine(printingg.GetInfoOverride());
+                    valuePrinting = printingg.Count * printingg.Price;
+                }
+                else if (obj is Magazine magazine)
+                {
+                    Console.WriteLine(magazine.GetInfoOverride());
+                    valueMagazine = magazine.Count * magazine.Price;
+                }
+                else if (obj is Book book)
+                {
+                    Console.WriteLine(book.GetInfoOverride());
+                    valueBook = book.Count * book.Price;
+                }
+                else if (obj is SchoolBook schoolBook)
+                {
+                    Console.WriteLine(schoolBook.GetInfoOverride());
+                    valueSchoolBook = schoolBook.Count * schoolBook.Price;
+                }
+
+            }
+
+            Console.WriteLine("\nПосле сортировки массива (по возрастанию; сравнивается сумма координат, суммарная стоимость; IComparable):\n");
+            Array.Sort(array);
+            foreach (var obj in array) Console.WriteLine(obj);
+
+            Console.WriteLine("\n==========================================\n");
+
+            Printing[] arrayPrinting = { new Book(), new SchoolBook(), new Magazine() };
+            foreach (var obj in arrayPrinting) Console.WriteLine($"Создан объект {obj.GetType().Name}:\n" + obj.GetInfoOverride());
+
+            Console.WriteLine("\nПосле сортировки массива (по возрастанию имени) с помощью IComparer:\n");
+            Array.Sort(arrayPrinting, new SortByName());
+            foreach (var obj in arrayPrinting) Console.WriteLine(obj.GetInfoOverride());
+
+
+            Console.WriteLine("\n==========================================\n");
+
+            Printing printing = new Printing();
+            Printing printingShallow = (Printing)printing.ShallowCopy();
+            Printing printingDeep = (Printing)printing.Clone();
+
+            Console.WriteLine($"Создан объект {printing.GetType().Name}:\n" + printing.GetInfoOverride());
+            Console.WriteLine($"\nСоздана копия поверхностным копированием:\n" + printingShallow.GetInfoOverride());
+            Console.WriteLine($"\nСоздана копия глубоким копированием:\n" + printingDeep.GetInfoOverride());
+
+            Console.WriteLine("\nМеняются имена у обеих копий на testShallow и testDeep\n");
+            printingShallow.Name = "testShallow";
+            printingDeep.Name = "testDeep";
+
+            Console.WriteLine("Исходный объект после смены имени у копий:\n" + printing.GetInfoOverride());
+            Console.WriteLine("\nИзмененные объекты:\n" + printingShallow.GetInfoOverride() + "\n\n" + printingDeep.GetInfoOverride());
+            Console.WriteLine("\nВ данном случае оба копирования сработали корректно, так как атрибуты не содержат подссылки на другие объекты.");
+            Console.WriteLine("\n==========================================\n");
+        }
+        public static void Task2()
         {
             Console.WriteLine("\n=======================TASK 2=======================\n");
 
@@ -190,29 +106,35 @@ namespace lab10
             SchoolBook schoolBook5 = new SchoolBook(name: "История Руси", pageCount: 270, releaseYear: 2012, price: 344, author: "Евгений Ромзен", categoryClass: 7, count: 85);
 
             Printing[] array = { magazine1, book1, schoolBook1, magazine2, book3, schoolBook2, schoolBook3, schoolBook4, book4, schoolBook5, book2 };
-            Console.WriteLine("В наличии всего " + GetCountSchoolBooks(array) + " учебников.\n");
+            Console.WriteLine("В наличии всего " + GetCountSchoolBooks(array) + " учебников.");
+            Console.WriteLine("\n==========================================\n");
             Console.Write(GetInfoPrintings(array));
+            Console.WriteLine("\n==========================================\n");
             Console.WriteLine(GetInfoBooksQuery(array, InputYear()));
             Console.WriteLine("Общая сумма имеющейся в наличии выбранной литературы: " + GetSumItems(array, InputBookName(array)));
         }
-
-        public static string InputBookName(in Printing[] array)
+        public static string Task1()
         {
-            //string[] validItems = new string[] { };
-            //foreach (var obj in array) { validItems = validItems.Append(obj.Name).ToArray(); }
-            var validItems = from obj in array select obj.Name;
+            string result = "=======================TASK 1=======================\n";
 
-            Console.WriteLine("\nПозиции в наличии:\n");
-            foreach (var item in validItems) { Console.WriteLine("* " + item); }
-            Console.WriteLine();
+            Magazine magazine = new Magazine(name: "Forbes", pageCount: 23, releaseYear: 2022, price: 600, cycle: "финансы", count: 94);
+            Book book = new Book(name: "Мастер и Маргарита", pageCount: 414, releaseYear: 1928, price: 971, author: "Михаил Булгаков", count: 15);
+            SchoolBook schoolBook = new SchoolBook(name: "Физика", pageCount: 378, releaseYear: 2019, price: 316, author: "Александр Перышкин", categoryClass: 10, count: 37);
 
-            string result;
-            do
-            {
-                Console.Write("Введите название товара, общую стоимость которого необходимо высчитать: ");
-                result = Console.ReadLine();
-            } while (!validItems.Contains(result));
-            Console.WriteLine();
+            Printing[] array = { magazine, book, schoolBook };
+
+            result += "\nБЕЗ ИСПОЛЬЗОВАНИЯ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n";
+            foreach (var obj in array) { result += obj.GetInfoNotOverride() + "\n\n"; }
+
+            result += "С ИСПОЛЬЗОВАНИЕМ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n";
+            foreach (var obj in array) { result += obj.GetInfoOverride() + "\n"; }
+
+            result += (
+                "Как видно из результата работы программы, виртуальные методы нужны для изменения логики работы метода. Таким образом, " +
+                "в случае использования обычного метода будет вызван метод базового класса для каждого объекта производного класса, " +
+                "что приведет к \"обработке\" только общей (базовой) части объектов. Если пробовать создать такой же метод в классе-наследнике, " +
+                "компилятор выдаст предупреждение о том, что ВСЕГДА будет использован метод именно базового класса с такой же сигнатурой."
+            );
 
             return result;
         }
@@ -270,6 +192,26 @@ namespace lab10
 
             return result;
         }
+        public static string InputBookName(in Printing[] array)
+        {
+            //string[] validItems = new string[] { };
+            //foreach (var obj in array) { validItems = validItems.Append(obj.Name).ToArray(); }
+            var validItems = from obj in array select obj.Name;
+
+            Console.WriteLine("\nПозиции в наличии:\n");
+            foreach (var item in validItems) { Console.WriteLine("* " + item); }
+            Console.WriteLine();
+
+            string result;
+            do
+            {
+                Console.Write("Введите название товара, общую стоимость которого необходимо высчитать: ");
+                result = Console.ReadLine();
+            } while (!validItems.Contains(result));
+            Console.WriteLine();
+
+            return result;
+        }
         public static string GetInfoBooksQuery(in Printing[] array, in int year)
         {
             Console.WriteLine($"\nРезультат поиска по книгам с датой публикации не ранее {year}:\n");
@@ -290,31 +232,6 @@ namespace lab10
             foreach (var obj in array) { if (obj is SchoolBook) ++count; }
 
             return count;
-        }
-        public static string Task1()
-        {
-            string result = "=======================TASK 1=======================\n";
-
-            Magazine magazine = new Magazine(name: "Forbes", pageCount: 23, releaseYear: 2022, price: 600, cycle: "финансы", count: 94);
-            Book book = new Book(name: "Мастер и Маргарита", pageCount: 414, releaseYear: 1928, price: 971, author: "Михаил Булгаков", count: 15);
-            SchoolBook schoolBook = new SchoolBook(name: "Физика", pageCount: 378, releaseYear: 2019, price: 316, author: "Александр Перышкин", categoryClass: 10, count: 37);
-
-            Printing[] array = { magazine, book, schoolBook };
-
-            result += "\nБЕЗ ИСПОЛЬЗОВАНИЯ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n";
-            foreach (var obj in array) { result += obj.GetInfoNotOverride() + "\n\n"; }
-
-            result += "С ИСПОЛЬЗОВАНИЕМ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n";
-            foreach (var obj in array) { result += obj.GetInfoOverride() + "\n"; }
-
-            result += (
-                "Как видно из результата работы программы, виртуальные методы нужны для изменения логики работы метода. Таким образом, " +
-                "в случае использования обычного метода будет вызван метод базового класса для каждого объекта производного класса, " +
-                "что приведет к \"обработке\" только общей (базовой) части объектов. Если пробовать создать такой же метод в классе-наследнике, " +
-                "компилятор выдаст предупреждение о том, что ВСЕГДА будет использован метод именно базового класса с такой же сигнатурой."
-            );
-
-            return result;
         }
     }
 }
