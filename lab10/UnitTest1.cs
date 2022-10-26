@@ -417,7 +417,7 @@ namespace lab10
 
             Printing[] array = { schoolBook1, schoolBook2, schoolBook3, schoolBook4, schoolBook5 };
 
-            Assert.AreEqual(expectedSum, Program.GetSumItems(array));
+            Assert.AreEqual(expectedSum, Program.GetSumItems(array, "ЕГЭ информатика 2022"));
         }
         [TestMethod]
         public void TestGetInfoPrintings()
@@ -515,6 +515,69 @@ namespace lab10
             Printing[] array = { schoolBook1, schoolBook2, schoolBook3, schoolBook4, schoolBook5 };
 
             Assert.AreEqual(expectedCount, Program.GetCountSchoolBooks(array));
+        }
+
+        [TestMethod]
+        public void TestGetInfoBooksQuery()
+        {
+            Book obj1 = new Book(
+                name: "test",
+                pageCount: 1,
+                releaseYear: 2020,
+                price: 100,
+                count: 17,
+                author: "test_author"
+            );
+            string expected = "* \"" + obj1.Name + $"\" ({obj1.Year}), " + obj1.Author + "\n";
+
+            Book obj2 = new Book(
+                name: "dfgdfg",
+                pageCount: 1,
+                releaseYear: 2000,
+                price: 100,
+                count: 17,
+                author: "test_asd"
+            );
+
+            Printing[] array = { obj1, obj2 };
+
+            Assert.AreEqual(expected, Program.GetInfoBooksQuery(array, 2001));
+        }
+
+        [TestMethod]
+        public void TestTask1()
+        {
+            string expected = (
+                "=======================TASK 1=======================\n\n" +
+                "БЕЗ ИСПОЛЬЗОВАНИЯ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n" +
+                "Тип объекта: Magazine\nНазвание: \"Forbes\"\n" +
+                "Страниц: 23\nГод выпуска: 2022\n" +
+                "Цена: 600\nВ наличии: 94\n\n" +
+                "Тип объекта: Book\nНазвание: \"Мастер и Маргарита\"\n" +
+                "Страниц: 414\nГод выпуска: 1928\n" +
+                "Цена: 971\nВ наличии: 15\n\n" +
+                "Тип объекта: SchoolBook\nНазвание: \"Физика\"\n" +
+                "Страниц: 378\nГод выпуска: 2019\n" +
+                "Цена: 316\nВ наличии: 37\n\n" +
+                "С ИСПОЛЬЗОВАНИЕМ ВИРТУАЛЬНЫХ МЕТОДОВ:\n\n" + 
+                "Тип объекта: Magazine\nЖурнал: \"Forbes\"\n" + 
+                "Цикл: финансы\nСтраниц: 23\n" +
+                "Год выпуска: 2022\nЦена: 600\n" +
+                "В наличии: 94\n\nТип объекта: Book\n"+
+                "Книга: \"Мастер и Маргарита\"\nАвтор: Михаил Булгаков\n" +
+                "Страниц: 414\nГод выпуска: 1928\n" +
+                "Цена: 971\nВ наличии: 15\n\n" +
+                "Тип объекта: SchoolBook\nУчебник: \"Физика\"\n" +
+                "Класс обучения: 10\nАвтор: Александр Перышкин\n" +
+                "Страниц: 378\nГод выпуска: 2019\n" +
+                "Цена: 316\nВ наличии: 37\n\n" +
+                "Как видно из результата работы программы, виртуальные методы нужны для изменения логики работы метода. Таким образом, " +
+                "в случае использования обычного метода будет вызван метод базового класса для каждого объекта производного класса, " +
+                "что приведет к \"обработке\" только общей (базовой) части объектов. Если пробовать создать такой же метод в классе-наследнике, " +
+                "компилятор выдаст предупреждение о том, что ВСЕГДА будет использован метод именно базового класса с такой же сигнатурой."
+            );
+
+            Assert.AreEqual(expected, Program.Task1());
         }
     }   
 
