@@ -22,7 +22,7 @@ namespace lab10
             _x = x;
             _y = y;
         }
-        public Point() { }
+        public Point() { RandomInit(); }
 
         public void RandomInit()
         {
