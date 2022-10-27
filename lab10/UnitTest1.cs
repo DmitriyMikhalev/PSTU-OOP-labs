@@ -71,6 +71,37 @@ namespace lab10
 
             Assert.AreEqual(expectedYear, obj2.Year);
         }
+        [TestMethod]
+        public void TestEmptyConstructor()
+        {
+            Magazine obj = new Magazine();
+
+            Assert.IsInstanceOfType(obj, typeof(Magazine));
+            Assert.IsNotNull(obj.Name);
+            Assert.IsNotNull(obj.Cycle);
+            Assert.IsNotNull(obj.Pages);
+            Assert.IsNotNull(obj.Year);
+            Assert.IsNotNull(obj.Count);
+            Assert.IsNotNull(obj.Price);
+        }
+        [TestMethod]
+        public void TestShallowCopy()
+        {
+            Magazine obj = new Magazine();
+            Magazine newObj = (Magazine)obj.ShallowCopy();
+
+            Assert.IsInstanceOfType(obj, typeof(Magazine));
+            Assert.AreNotSame(newObj, obj);
+        }
+        [TestMethod]
+        public void TestClone()
+        {
+            Magazine obj = new Magazine();
+            Magazine newObj = (Magazine)obj.Clone();
+
+            Assert.IsInstanceOfType(obj, typeof(Magazine));
+            Assert.AreNotSame(newObj, obj);
+        }
 
         [TestMethod]
         public void TestPropertiesSetCorrect()
@@ -219,6 +250,39 @@ namespace lab10
             Assert.AreEqual(expected, obj.GetInfoNotOverride());
         }
         [TestMethod]
+        public void TestEmptyConstructor()
+        {
+            Book obj = new Book();
+
+            Assert.IsInstanceOfType(obj, typeof(Book));
+            Assert.IsNotNull(obj.Name);
+            Assert.IsNotNull(obj.Pages);
+            Assert.IsNotNull(obj.Year);
+            Assert.IsNotNull(obj.Price);
+            Assert.IsNotNull(obj.Count);
+            Assert.IsNotNull(obj.Author);
+
+        }
+        [TestMethod]
+        public void TestShallowCopy()
+        {
+            Book obj = new Book();
+            Book newObj = (Book)obj.ShallowCopy();
+
+            Assert.IsInstanceOfType(obj, typeof(Book));
+            Assert.AreNotSame(newObj, obj);
+        }
+        [TestMethod]
+        public void TestClone()
+        {
+            Book obj = new Book();
+            Book newObj = (Book)obj.Clone();
+
+            Assert.IsInstanceOfType(obj, typeof(Book));
+            Assert.AreNotSame(newObj, obj);
+        }
+
+        [TestMethod]
         public void TestGetInfoOverride()
         {
             Book obj = new Book(
@@ -272,6 +336,37 @@ namespace lab10
 
             Assert.AreEqual(expectedCategory, obj1.Category);
             Assert.AreEqual(expectedCategory, obj2.Category);
+        }
+        [TestMethod]
+        public void TestEmptyConstructor()
+        {
+            SchoolBook obj = new SchoolBook();
+
+            Assert.IsInstanceOfType(obj, typeof(SchoolBook));
+            Assert.IsNotNull(obj.Name);
+            Assert.IsNotNull(obj.Count);
+            Assert.IsNotNull(obj.Year);
+            Assert.IsNotNull(obj.Price);
+            Assert.IsNotNull(obj.Author);
+            Assert.IsNotNull(obj.Category);
+        }
+        [TestMethod]
+        public void TestShallowCopy()
+        {
+            SchoolBook obj = new SchoolBook();
+            SchoolBook newObj = (SchoolBook)obj.ShallowCopy();
+
+            Assert.IsInstanceOfType(obj, typeof(SchoolBook));
+            Assert.AreNotSame(newObj, obj);
+        }
+        [TestMethod]
+        public void TestClone()
+        {
+            SchoolBook obj = new SchoolBook();
+            SchoolBook newObj = (SchoolBook)obj.Clone();
+
+            Assert.IsInstanceOfType(obj, typeof(SchoolBook));
+            Assert.AreNotSame(newObj, obj);
         }
         [TestMethod]
         public void TestPropertiesSetCorrect()
@@ -518,7 +613,7 @@ namespace lab10
         }
 
         [TestMethod]
-        public void TestGetInfoBooksQuery()
+        public void TestGetInfoBooksQueryNotEmpty()
         {
             Book obj1 = new Book(
                 name: "test",
@@ -539,7 +634,17 @@ namespace lab10
                 author: "test_asd"
             );
 
-            Printing[] array = { obj1, obj2 };
+            Printing obj3 = new Printing();
+
+            Printing[] array = { obj1, obj2, obj3 };
+
+            Assert.AreEqual(expected, Program.GetInfoBooksQuery(array, 2001));
+        }
+        [TestMethod]
+        public void TestGetInfoBooksQueryEmpty()
+        {
+            Printing[] array = { };
+            string expected = "";
 
             Assert.AreEqual(expected, Program.GetInfoBooksQuery(array, 2001));
         }
@@ -578,6 +683,176 @@ namespace lab10
             );
 
             Assert.AreEqual(expected, Program.Task1());
+        }
+    }
+    [TestClass]
+    public class TestPrintingClass
+    {
+        [TestMethod]
+        public void TestRandomInit()
+        {
+            Printing obj = new Printing();
+            obj.RandomInit();
+
+            Assert.IsInstanceOfType(obj, typeof(Printing));
+            Assert.IsNotNull(obj.Name);
+            Assert.IsNotNull(obj.Count);
+            Assert.IsNotNull(obj.Price);
+            Assert.IsNotNull(obj.Pages);
+            Assert.IsNotNull(obj.Year);
+        }
+        [TestMethod]
+        public void TestGetInfoOverride()
+        {
+            Printing obj = new Printing();
+            string expected = (
+                $"Тип объекта: {obj.GetType().Name}\n" +
+                $"Название: \"{obj.Name}\"\n" +
+                $"Страниц: {obj.Pages}\n" +
+                $"Год выпуска: {obj.Year}\n" +
+                $"Цена: {obj.Price}\n" +
+                $"В наличии: {obj.Count}"
+            );
+
+            Assert.AreEqual(expected, obj.GetInfoOverride());
+        }
+        [TestMethod]
+        public void TestShallowCopy()
+        {
+            Printing obj = new Printing();
+            Printing newObj = (Printing)obj.ShallowCopy();
+
+            Assert.IsInstanceOfType(obj, typeof(Printing));
+            Assert.AreNotSame(newObj, obj);
+        }
+        [TestMethod]
+        public void TestClone()
+        {
+            Printing obj = new Printing();
+            Printing newObj = (Printing)obj.Clone();
+
+            Assert.IsInstanceOfType(obj, typeof(Printing));
+            Assert.AreNotSame(newObj, obj);
+        }
+        [TestMethod]
+        public void TestCompareToCorrect()
+        {
+            Printing printing = new Printing("2", 2, 2022, 2, 2);
+
+            Printing otherPrinting = new Printing("1", 1, 2022, 1, 1);
+            Point otherPoint = new Point(99, 99);
+
+            int expectedPrintingsResult = 1;
+            int expectedPointResult = -1;
+
+            Assert.AreEqual(expectedPrintingsResult, printing.CompareTo(otherPrinting));
+            Assert.AreEqual(expectedPointResult, printing.CompareTo(otherPoint));
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "Некорректное сравнение")]
+        public void TestCompareToIncorrect()
+        {
+            Printing printing = new Printing();
+            printing.CompareTo(9);
+        }
+    }
+    [TestClass]
+    public class TestSortByNameClass
+    {
+        [TestMethod]
+        public void TestCopmare()
+        {
+            Book obj1 = new Book("1", 1, 2022, 1, 1, "1");
+            Book obj2 = new Book("2", 2, 2022, 2, 2, "2");
+            Book obj3 = new Book("1", 1, 2022, 1, 1, "3");
+            SortByName sort = new SortByName();
+
+            Assert.AreEqual(-1, sort.Compare(obj1, obj2));
+            Assert.AreEqual(0, sort.Compare(obj1, obj3));
+            Assert.AreEqual(1, sort.Compare(obj2, obj1));
+        }
+    }
+    [TestClass]
+    public class TestPointClass
+    {
+        [TestMethod]
+        public void TestConstructor()
+        {
+            int expectedX = 1;
+            int expectedY = 3;
+            Point obj = new Point(expectedX, expectedY);
+
+            Assert.IsInstanceOfType(obj, typeof(Point));
+            Assert.AreEqual(expectedX, obj.X);
+            Assert.AreEqual(expectedY, obj.Y);
+        }
+        [TestMethod]
+        public void TestEmptyConstructor()
+        {
+            Point obj = new Point();
+
+            Assert.IsInstanceOfType(obj, typeof(Point));
+            Assert.IsNotNull(obj.X);
+            Assert.IsNotNull(obj.Y);
+        }
+        [TestMethod]
+        public void TestGetInfo()
+        {
+            int expectedX = 1;
+            int expectedY = -1;
+            Point obj = new Point(expectedX, expectedY);
+            string expected = $"x = {expectedX}, y = {expectedY}";
+
+            Assert.AreEqual(expected, obj.GetInfo());
+        }
+        [TestMethod]
+        public void TestPropertiesGet()
+        {
+            int expectedX = 0;
+            int expectedY = -10;
+            Point obj = new Point(expectedX, expectedY);
+
+            Assert.AreEqual(expectedX, obj.X);
+            Assert.AreEqual(expectedY, obj.Y);
+        }
+        [TestMethod]
+        public void TestPropertiesSet()
+        {
+            int x = 0;
+            int y = 0;
+            int newX = 1;
+            int newY = -1;
+
+            Point obj = new Point(x, y);
+            obj.X = newX;
+            obj.Y = newY;
+
+            Assert.AreEqual(newX, obj.X);
+            Assert.AreEqual(newY, obj.Y);
+        }
+        [TestMethod]
+        public void TestCompareToCorrect()
+        {
+            Point point = new Point(101, 101);
+            Point otherPoint = new Point();
+            Point equalPoint = new Point(101, 101);
+            Printing otherPrinting = new Printing("1", 1, 2022, 9999, 1);
+
+            int expectedOtherPoint = 1;
+            int expectedEqualPoint = 0;
+            int expectedOtherPrinting = -1;
+
+            Assert.AreEqual(expectedOtherPoint, point.CompareTo(otherPoint));
+            Assert.AreEqual(expectedEqualPoint, point.CompareTo(equalPoint));
+            Assert.AreEqual(expectedOtherPrinting, point.CompareTo(otherPrinting));
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "Некорректное сравнение.")]
+        public void TestCompareToIncorrect()
+        {
+            Point point = new Point(101, 101);
+
+            point.CompareTo(1);
         }
     }
 }
