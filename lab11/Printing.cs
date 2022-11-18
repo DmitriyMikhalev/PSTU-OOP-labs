@@ -14,7 +14,15 @@ namespace lab11
         {
             return Name;
         }
-
+        public override bool Equals(object obj)
+        {
+            if (obj is Printing printing) return Name == printing.Name;
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
         public string GetRandomString()
         {
             int stringLen = Rnd.random.Next(15, 20);

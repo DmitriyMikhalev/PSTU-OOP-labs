@@ -3,7 +3,7 @@ using System;
 
 namespace lab11
 {
-    class TestCollections
+    public class TestCollections
     {
         public LinkedList<string> fcString;
         public LinkedList<Printing> fcPrinting;
