@@ -4,40 +4,40 @@ namespace lab10
 {
     public class Point : IRandomInit, IComparable
     {
-        private int _x;
-        private int _y;
+        private int x;
+        private int y;
 
         public int X
         {
-            get { return _x; }
-            set { _x = value; }
+            get { return x; }
+            set { x = value; }
         }
         public int Y
         {
-            get { return _y; }
-            set { _y = value; }
+            get { return y; }
+            set { y = value; }
         }
         public Point(in int x, in int y)
         {
-            _x = x;
-            _y = y;
+            this.x = x;
+            this.y = y;
         }
         public Point() { RandomInit(); }
 
         public void RandomInit()
         {
-            Random random = new Random();
-            _x = random.Next(-100, 100);
-            _y = random.Next(-100, 100);
+            Random random = Rand.random;
+            x = random.Next(-100, 100);
+            y = random.Next(-100, 100);
         }
 
         public int CompareTo(object? obj)
         {
-            if (obj is Point point) return (_x + _y).CompareTo(point.X + point.Y);
-            else if (obj is Printing printing) return (_x + _y).CompareTo(printing.Count * printing.Price);
+            if (obj is Point point) return (x + y).CompareTo(point.X + point.Y);
+            else if (obj is Printing printing) return (x + y).CompareTo(printing.Count * printing.Price);
 
             throw new ArgumentException("Некорректное сравнение.");
         }
-        public string GetInfo() { return $"x = {_x}, y = {_y}"; }
+        public string GetInfo() { return $"x = {x}, y = {y}"; }
     }
 }

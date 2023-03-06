@@ -4,113 +4,115 @@ namespace lab10
 {
     public class Printing : IRandomInit, IComparable, ICloneable
     {
-        protected string _name;
-        protected int _pageCount;
-        protected int _releaseYear;
-        protected int _price;
-        protected int _countInstances;
+        protected string name;
+        protected int pageCount;
+        protected int releaseYear;
+        protected int price;
+        protected int countInstances;
 
         public virtual void RandomInit()
         {
-            Random random = new Random();
+            Random random = Rand.random;
             string[] names = { "Мастер Знак", "НеМастер Знак", "Мастер НеЗнак", "НеМастер НеЗнак", "Не Не", "Знак Знак", "Мастер Мастер" };
 
-            _name = names[random.Next(names.Length)];
-            _pageCount = random.Next(500);
-            _releaseYear = random.Next(1990, DateTime.Now.Year);
-            _price = random.Next(1765);
-            _countInstances = random.Next(60);
+            name = names[random.Next(names.Length)];
+            pageCount = random.Next(500);
+            releaseYear = random.Next(1990, DateTime.Now.Year);
+            price = random.Next(1765);
+            countInstances = random.Next(60);
         }
         public int Count
         {
-            get { return _countInstances; }
+            get { return countInstances; }
             set
             {
-                if (value > 0) _countInstances = value;
-                else _countInstances = 0;
+                if (value > 0) countInstances = value;
+                else countInstances = 0;
             }
         }
         public int Price
         {
-            get { return _price; }
+            get { return price; }
             set
             {
-                if (value >= 0) _price = value;
-                else _price = 0;
+                if (value >= 0) price = value;
+                else price = 0;
             }
         }
         public string Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return name; }
+            set { name = value; }
         }
         public int Pages
         {
-            get { return _pageCount; }
+            get { return pageCount; }
             set
             {
-                if (value > 0) _pageCount = value;
-                else _pageCount = 0;
+                if (value > 0) pageCount = value;
+                else pageCount = 0;
             }
         }
         public int Year
         {
-            get { return _releaseYear; }
+            get { return releaseYear; }
             set
             {
-                if (value > 1700 && value < DateTime.Now.Year) _releaseYear = value;
-                else _releaseYear = DateTime.Now.Year;
+                if (value > 1700 && value < DateTime.Now.Year) releaseYear = value;
+                else releaseYear = DateTime.Now.Year;
             }
         }
         public Printing(in string name, in int pageCount, in int releaseYear, in int price, in int count)
         {
-            _name = name;
+            this.name = name;
 
-            if (pageCount >= 0) _pageCount = pageCount;
-            else _pageCount = 0;
+            if (pageCount >= 0) this.pageCount = pageCount;
+            else this.pageCount = 0;
 
-            if (releaseYear <= DateTime.Now.Year && releaseYear >= 1700) _releaseYear = releaseYear;
-            else _releaseYear = DateTime.Now.Year;
+            if (releaseYear <= DateTime.Now.Year && releaseYear >= 1700) this.releaseYear = releaseYear;
+            else this.releaseYear = DateTime.Now.Year;
 
-            if (price >= 0) _price = price;
-            else _price = 0;
+            if (price >= 0) this.price = price;
+            else this.price = 0;
 
-            if (count >= 0) _countInstances = count;
-            else _countInstances = 0;
+            if (count >= 0) countInstances = count;
+            else countInstances = 0;
         }
-        public Printing() { RandomInit(); }
-        public string GetInfoNotOverride()
+        public Printing() { RandomInit(); } 
+        public override string ToString()
         {
             return (
-                $"Тип объекта: {GetType().Name}\n" +
-                $"Название: \"{_name}\"\n" +
-                $"Страниц: {_pageCount}\n" +
-                $"Год выпуска: {_releaseYear}\n" +
-                $"Цена: {_price}\n" +
-                $"В наличии: {_countInstances}"
-            );
-        }
-        public virtual string GetInfoOverride()
-        {
-            return (
-                $"Тип объекта: {GetType().Name}\n" +
-                $"Название: \"{_name}\"\n" +
-                $"Страниц: {_pageCount}\n" +
-                $"Год выпуска: {_releaseYear}\n" +
-                $"Цена: {_price}\n" +
-                $"В наличии: {_countInstances}"
+                $"Тип объекта: {GetType().Name} " +
+                $"Название: {name} " +
+                $"Страниц: {pageCount} " +
+                $"Год выпуска: {releaseYear} " +
+                $"Цена: {price} " +
+                $"В наличии: {countInstances} "
             );
         }
 
         public int CompareTo(object? obj)
         {
-            if (obj is Point point) return (_price * _countInstances).CompareTo(point.X * point.Y);
-            else if (obj is Printing printing) return (_price * _countInstances).CompareTo(printing.Price * printing.Count);
+            if (obj is Point point) return (price * countInstances).CompareTo(point.X * point.Y);
+            else if (obj is Printing printing) return (price * countInstances).CompareTo(printing.Price * printing.Count);
 
             throw new ArgumentException("Некорректное сравнение");
         }
-
-        public virtual object Clone() => new Printing(_name, _pageCount, _releaseYear, _price, _countInstances);
+        public override bool Equals(object? obj)
+        {
+            bool flag = false;
+            if (obj is Printing printing)
+            {
+                flag = name == printing.name && 
+                       pageCount == printing.pageCount &&
+                       releaseYear == printing.releaseYear &&
+                       price == printing.price &&
+                       countInstances == printing.countInstances &&
+                       GetType() == printing.GetType();
+            }
+            return flag;
+        }
+        public virtual object Clone() => new Printing(name, pageCount, releaseYear, price, countInstances);
         public virtual object ShallowCopy() { return (Printing)this.MemberwiseClone(); }
     }
 }

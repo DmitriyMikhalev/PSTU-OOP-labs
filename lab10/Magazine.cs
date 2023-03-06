@@ -4,42 +4,42 @@ namespace lab10
 {
     public class Magazine : Printing
     {
-        private string _cycle;
+        private string cycle;
 
         public string Cycle
         {
-            get { return _cycle; }
-            set { _cycle = value; }
+            get { return cycle; }
+            set { cycle = value; }
         }
         public Magazine(in string name, in int pageCount, in int releaseYear, in int price, in int count, in string cycle)
-            : base(name, pageCount, releaseYear, price, count) { _cycle = cycle; }
+            : base(name, pageCount, releaseYear, price, count) { this.cycle = cycle; }
         public Magazine() { RandomInit(); }
-        public override string GetInfoOverride()
+        public override string ToString()
         {
             return (
-                $"Тип объекта: {GetType().Name}\n" +
-                $"Журнал: \"{_name}\"\n" +
-                $"Цикл: {_cycle}\n" +
-                $"Страниц: {_pageCount}\n" +
-                $"Год выпуска: {_releaseYear}\n" +
-                $"Цена: {_price}\n" +
-                $"В наличии: {_countInstances}\n"
+                $"Тип объекта: {GetType().Name} " +
+                $"Журнал: {name} " +
+                $"Цикл: {cycle} " +
+                $"Страниц: {pageCount} " +
+                $"Год выпуска: {releaseYear} " +
+                $"Цена: {price} " +
+                $"В наличии: {countInstances} "
            );
         }
         public override void RandomInit()
         {
-            Random random = new Random();
+            Random random = Rand.random;
             string[] names = { "Forbes", "Игромания", "New York Times", "PlayBoy", "Космополитан", "Big Guns", "Сборник судоку" };
             string[] cycles = { "Игры", "Оружие", "Финансы", "Эротика", "Мода", "Головоломки", "Комиксы" };
 
-            _name = names[random.Next(names.Length)];
-            _cycle = cycles[random.Next(cycles.Length)];
-            _pageCount = random.Next(500);
-            _releaseYear = random.Next(1990, DateTime.Now.Year);
-            _price = random.Next(1765);
-            _countInstances = random.Next(60);
+            name = names[random.Next(names.Length)];
+            cycle = cycles[random.Next(cycles.Length)];
+            pageCount = random.Next(500);
+            releaseYear = random.Next(1990, DateTime.Now.Year);
+            price = random.Next(1765);
+            countInstances = random.Next(60);
         }
-        public override object Clone() => new Magazine(_name, _pageCount, _releaseYear, _price, _countInstances, _cycle);
+        public override object Clone() => new Magazine(name, pageCount, releaseYear, price, countInstances, cycle);
         public override object ShallowCopy() { return (Magazine)this.MemberwiseClone(); }
     }
 }
